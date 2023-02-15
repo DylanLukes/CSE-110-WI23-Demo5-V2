@@ -13,7 +13,7 @@ public class TimeService {
     private final MutableLiveData<Long> realTimeData;
 
     // LiveData variable which contains the mocked time value (if there is one).
-    private final LiveData<Long> mockTimeData = null;
+    private LiveData<Long> mockTimeData = null;
 
     // MediatorLiveData which we return to clients of this service.
     private final MediatorLiveData<Long> timeData;
@@ -67,11 +67,13 @@ public class TimeService {
      * Mocks the time source instead of using the time listener
      */
     public void setMockTimeSource(MutableLiveData<Long> mockTimeData) {
+        this.mockTimeData = mockTimeData;
         unregisterTimeListener();
         timeData.removeSource(realTimeData);
         timeData.addSource(mockTimeData, timeData::postValue);
     }
 
+    /** Undoes the mock, restoring the original behavior. */
     public void clearMockTimeSource() {
         registerTimeListener();
         timeData.removeSource(mockTimeData);
