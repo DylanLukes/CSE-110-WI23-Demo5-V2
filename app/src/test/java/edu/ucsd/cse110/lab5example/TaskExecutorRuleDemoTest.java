@@ -34,8 +34,6 @@ public class TaskExecutorRuleDemoTest {
             var latch = new CountDownLatch(1);
 
             data.observe(activity, str -> {
-                // This will fail because the LiveData is not updated yet.
-                // The LiveData is updated asynchronously, so we need to wait for it.
                 assertEquals("hello!", str);
                 latch.countDown();
             });

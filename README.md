@@ -4,7 +4,9 @@ Herein, please find a modified version of the code from Demo 5.
 
 There are a few things to take note of, which may be helpful for your projects.
 
-## Use of `MediatorLiveData`
+## Testing Conveniences
+
+### `MediatorLiveData`
 
 **The most important thing to do is to compare `TimeService` and `OrientationService`, and their
 respective tests.** TimeService has been refactored to use 
@@ -23,7 +25,7 @@ returned as an _interface_ `LiveData`), our activities never have to re-observe.
 
 **Note:** this use of `MediatorLiveData` is kind of like the Adapter pattern for `LiveData`!
 
-## `InstantTaskExecutorRule` and `CountdownLatch`
+### `InstantTaskExecutorRule` and `CountdownLatch`
 
 All of the tests included here work and should provide a good starting place for your own testing
 if you're struggling to do so with `LiveData` involved. Note the added rule:
@@ -37,7 +39,7 @@ public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutor
 
 This rule is needed for `LiveData` to work properly in tests. It tells AndroidX Test that we want
 to run everything on the UI thread immediately, waiting before proceeding. You can think of it as 
-making `runOnUiThread` _always_ return immediately.
+making `runOnUiThread` _always_ run immediately.
 
 We've included an example in `TaskExecutorRuleDemoTest`. You can see that the test fails without
 the rule, and passes with it. This is because the `LiveData` is not updated before the test continues.
