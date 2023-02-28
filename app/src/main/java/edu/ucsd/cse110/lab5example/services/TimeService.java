@@ -52,7 +52,7 @@ public class TimeService {
     public void registerTimeListener() {
         var executor = Executors.newSingleThreadScheduledExecutor();
         clockFuture = executor.scheduleAtFixedRate(() -> {
-            timeData.postValue(System.currentTimeMillis());
+            realTimeData.postValue(System.currentTimeMillis());
         }, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
